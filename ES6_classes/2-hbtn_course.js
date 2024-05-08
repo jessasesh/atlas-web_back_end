@@ -1,11 +1,17 @@
 export default class HolbertonCourse {
   constructor(name, length, students) {
-    // Verify the type of attributes during object creation
-    if (typeof name !== 'string' || typeof length !== 'number' || !Array.isArray(students)) {
-      throw new Error('Invalid parameter types');
+    // Validators to check parameter types
+    if (typeof name !== 'string') {
+      throw TypeError('Name must be a string');
+    }
+    if (typeof length !== 'number') {
+      throw TypeError('Length must be a number');
+    }
+    if (!Array.isArray(students) || students.some(student => typeof student !== 'string')) {
+      throw TypeError('Students must be an array of strings');
     }
 
-    // Initialize the attributes
+    // Initialize instance variables
     this._name = name;
     this._length = length;
     this._students = students;
@@ -15,32 +21,41 @@ export default class HolbertonCourse {
   get name() {
     return this._name;
   }
-  set name(newName) {
-    if (typeof newName !== 'string') {
-      throw new TypeError('Name must be a string');
+
+  set name(x) {
+    // Validator to ensure parameter type
+    if (typeof x === 'string') {
+      this._name = x;
+    } else {
+      throw TypeError('Name must be a string');
     }
-    this._name = newName;
   }
 
   // Getter and setter for the length attribute
   get length() {
     return this._length;
   }
-  set length(newLength) {
-    if (typeof newLength !== 'number') {
-      throw new TypeError('Length must be a number');
+
+  set length(x) {
+    // Validator to ensure parameter type
+    if (typeof x === 'number') {
+      this._length = x;
+    } else {
+      throw TypeError('Length must be a number');
     }
-    this._length = newLength;
   }
 
   // Getter and setter for the students attribute
   get students() {
     return this._students;
   }
-  set students(newStudents) {
-    if (!Array.isArray(newStudents) || newStudents.some(student => typeof student !== 'string')) {
-      throw new TypeError('Students must be an array of strings');
+
+  set students(x) {
+    // Validator to ensure parameter type
+    if (Array.isArray(x) && x.every(student => typeof student === 'string')) {
+      this._students = x;
+    } else {
+      throw TypeError('Students must be an array of strings');
     }
-    this._students = newStudents;
   }
 }
