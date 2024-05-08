@@ -13,7 +13,7 @@ export default function getBudgetForCurrentYear(income, gdp, capita) {
     // Use ES6 computed property names to dynamically generate property names
     [`income-${getCurrentYear()}`]: income,
     [`gdp-${getCurrentYear()}`]: gdp,
-    [`capita-${getCurrentYear()}`]: capita
+    [`capita-${getCurrentYear()}`]: capita,
   };
 
   // Return the budget object
