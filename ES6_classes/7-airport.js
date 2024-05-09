@@ -16,7 +16,7 @@ export default class Airport {
     this._code = code;
   }
   // Method to return airport code
-  toString() {
+  retrieveCode() {
     return `[object ${this._code}]`;
   }
 }
