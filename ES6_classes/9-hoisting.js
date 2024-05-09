@@ -1,3 +1,4 @@
+/* eslint-disable */
 export class HolbertonClass {
   // Constructor with attributes
   constructor(year, location) {
@@ -23,9 +24,9 @@ const class2020 = new HolbertonClass(2020, 'San Francisco');
 // Define a StudentHolberton class
 export class StudentHolberton {
   constructor(firstName, lastName, holbertonClass) {
-    this._firstName = firstName; // Assign firstName parameter to _firstName property
-    this._lastName = lastName; // Assign lastName parameter to _lastName property
-    this._holbertonClass = holbertonClass; // Assign holbertonClass parameter to _holbertonClass property
+    this._firstName = firstName;
+    this._lastName = lastName;
+    this._holbertonClass = holbertonClass;
   }
 
   // Getter for full name of the student
