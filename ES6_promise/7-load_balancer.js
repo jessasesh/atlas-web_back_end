@@ -1,3 +1,5 @@
+// Initiate downloads simultaneously from China/US
 export default function loadBalancer(chinaDownload, USDownload) {
-//return value returned by the promise resolved by the first
+  // Return the result of the fastest one
+  return Promise.race([chinaDownload, USDownload]);
 }
