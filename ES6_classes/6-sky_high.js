@@ -12,17 +12,17 @@ export default class SkyHighBuilding extends Building {
     // Initialize the _floors property with the floors parameter
     this._floors = floors;
   }
-  
+
   // Getter to retrie value of _sqft property
   get sqft() {
     return this._sqft;
   }
-  
+
   // Getter to retrie value of _flooor property
   get floors() {
     return this._floors;
   }
-  
+
   // Warning message for specified floor
   evacuationWarningMessage() {
     return `Evacuate slowly the ${this.floors} floors`;
