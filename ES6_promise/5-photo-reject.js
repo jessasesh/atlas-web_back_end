@@ -1,3 +1,4 @@
-export default function uploadPhoto(filename) {
-
+// Promise to reject
+export default function uploadPhoto(fileName) {
+  return Promise.reject(new Error(`${fileName} cannot be processed`));
 }
