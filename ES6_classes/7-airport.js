@@ -15,7 +15,7 @@ export default class Airport {
     // Assign code parameter to _code property
     this._code = code;
   }
-  
+
   // Method to return airport code
   toString() {
     return `[object ${this._code}]`;
