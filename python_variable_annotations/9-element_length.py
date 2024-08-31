@@ -3,10 +3,10 @@
 Fucntion that returns a list of tuples.
 """
 
-from typing import List, Tuple, Sequence
+from typing import List, Tuple, Sequence, Iterable
 
 
-def element_length(lst: List[Sequence]) -> List[Tuple[Sequence, int]]:
+def element_length(lst: Iterable[Sequence]) -> List[Tuple[Sequence, int]]:
     """
     List of tuples that each contain an element
     of the input list and its length.
