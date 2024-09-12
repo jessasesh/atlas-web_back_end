@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
-
+"""
+BasicCache module
+"""
 from base_caching import BaseCaching
 
 
 class BasicCache(BaseCaching):
+    """
+    BasicCache inherits from BaseCaching
+    """
 
     def put(self, key, item):
         """
