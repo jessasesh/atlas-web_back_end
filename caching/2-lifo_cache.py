@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+LIFO caching system
+"""
 from base_caching import BaseCaching
 
 
