@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from base_caching import BaseCaching
 
+
 class LIFOCache(BaseCaching):
     """
     LIFO caching system
@@ -28,7 +29,6 @@ class LIFOCache(BaseCaching):
 
             self.cache_data[key] = item
             self.last_key = key
-
 
     def get(self, key):
         """
