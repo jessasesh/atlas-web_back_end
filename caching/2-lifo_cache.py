@@ -11,6 +11,10 @@ class LIFOCache(BaseCaching):
         self.last_key = None
 
     def put(self, key, item):
+        """
+        Adds or updates an item in cache; if cache
+        is full, last added item is removed.
+        """
         if key is None or item is None:
             return
 
@@ -27,6 +31,9 @@ class LIFOCache(BaseCaching):
 
 
     def get(self, key):
+        """
+        Retrieves an item from cache.
+        """
         if key is None:
             return None
         return self.cache_data.get(key, None)
