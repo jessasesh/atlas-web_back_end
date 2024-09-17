@@ -7,14 +7,19 @@ class FIFOCache(BaseCaching):
     """
 
     def __init__(self):
-        """ Initialize the class with parent class attributes """
+        """ 
+        Initialize the class with parent class attributes
+        """
         super().__init__()
-        self.order = []  # List to keep track of insertion order
+        self.order = []
 
     def put(self, key, item):
+        """
+        Add or updates item in cache; if cache is full,
+        removes the oldest.
+        """
         if key is None or item is None:
             return
-
         
         if key in self.cache_data:
             self.cache_data[key] = item
@@ -29,4 +34,7 @@ class FIFOCache(BaseCaching):
 
 
     def get(self, key):
+        """
+        Retrieves an item from cache.
+        """
         return self.cache_data.get(key, None)
