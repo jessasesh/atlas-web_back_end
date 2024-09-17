@@ -11,6 +11,10 @@ class LRUCache(BaseCaching):
         self.usage_order = []
 
     def put(self, key, item):
+        """
+        Add or updates an item in cache; if cache
+        is full, remove least recently used item.
+        """
         if key is None or item is None:
             return
         if key in self.cache_data:
@@ -27,6 +31,9 @@ class LRUCache(BaseCaching):
             self.usage_order.append(key)
 
     def get(self, key):
+        """
+        Retrieves item from cache.
+        """
         if key is None or key not in self.cache_data:
             return None
 
