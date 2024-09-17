@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+FIFO caching system
+"""
 from base_caching import BaseCaching
 
 class FIFOCache(BaseCaching):
