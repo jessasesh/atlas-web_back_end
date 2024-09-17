@@ -4,13 +4,14 @@ FIFO caching system
 """
 from base_caching import BaseCaching
 
+
 class FIFOCache(BaseCaching):
     """
     FIFO caching system
     """
 
     def __init__(self):
-        """ 
+        """
         Initialize the class with parent class attributes
         """
         super().__init__()
@@ -23,7 +24,7 @@ class FIFOCache(BaseCaching):
         """
         if key is None or item is None:
             return
-        
+
         if key in self.cache_data:
             self.cache_data[key] = item
         else:
@@ -34,7 +35,6 @@ class FIFOCache(BaseCaching):
 
             self.cache_data[key] = item
             self.order.append(key)
-
 
     def get(self, key):
         """
