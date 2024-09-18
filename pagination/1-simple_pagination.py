@@ -41,10 +41,10 @@ class Server:
             """
             Retrieves a page from the given dataset.
             """
-            if not isinstance(page, int) or not isinstance(page_size, int):
-                 return []
-            if page <= 0 or page_size <= 0:
-                 return[]
+            assert isinstance(page, int), "Page must be an integer."
+            assert isinstance(page_size, int), "Page size must be an integer."
+            assert page > 0, "Page must be greater than zero."
+            assert page_size > 0, "Page size must be greater than zero."
             
             dataset = self.dataset()
             start_index, end_index = index_range(page, page_size)
