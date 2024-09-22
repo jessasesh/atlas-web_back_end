@@ -6,32 +6,29 @@ import re
 import logging
 from typing import List
 
+PII_FIELDS = ("email", "ssn", "password", "address", "phone_number")
+
 
 def filter_datum(fields: List[str], redaction: str, message: str,
                  separator: str) -> str:
     """
     Function that obfuscates log message
     """
-    # construct regex pattern to match field=value format
     for field in fields:
-        #  re.escape(field) and re.escape(separator)
-        # treats each field string value and separator literally
         pattern = rf"{re.escape(field)}=.*?{re.escape(separator)}"
-    #  re.sub to replace field values with redaction symbols
         message = re.sub(pattern, f"{field}={redaction}{separator}", message)
     return message
 
 
 class RedactingFormatter(logging.Formatter):
-    """ Redacting Formatter class
-        """
+    """Redacting Formatter class."""
 
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
     def __init__(self, fields: List[str]):
-        super(RedactingFormatter, self).__init__(self.FORMAT)
+        super().__init__(self.FORMAT)
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
@@ -41,3 +38,18 @@ class RedactingFormatter(logging.Formatter):
             self.fields, self.REDACTION, formatted_message, self.SEPARATOR
         )
         return obfuscated_message
+
+
+def get_logger() -> logging.Logger:
+    """
+    Get object
+    """
+    logger = logging.getLogger("user_data")
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+
+    handler = logging.StreamHandler()
+    handler.setFormatter(RedactingFormatter(PII_FIELDS))
+    logger.addHandler(handler)
+
+    return logger
