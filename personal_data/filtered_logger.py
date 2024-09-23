@@ -8,6 +8,7 @@ import re
 import logging
 from typing import List
 
+
 PII_FIELDS = ("name", "ssn", "password", "phone", "email")
 
 
@@ -73,3 +74,48 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
         database=db_name
     )
     return connection
+
+logging.basicConfig(
+    format='[HOLBERTON] user_data INFO %(asctime)s: %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S',
+    level=logging.INFO
+)
+
+def get_db():
+    try:
+        connection = mysql.connector.connect(
+            host='localhost',
+            user='root',
+            password='root',
+            database='my_db'
+        )
+        if connection.is_connected():
+            return connection
+    except Error as e:
+        logging.error(f"Error connecting to MySQL: {e}")
+        return None
+
+def main():
+    """
+    Implement a main function
+    """
+    connection = get_db()
+    if connection is None:
+        return
+    
+    cursor = connection.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM users")
+    rows = cursor.fetchall()
+
+    for row in rows:
+        filtered_data = (
+            f"name=***; email=***; phone=***; ssn=***; password=***; "
+            f"ip={row['ip']}; last_login={row['last_login']}; user_agent={row['user_agent']}"
+        )
+        logging.info(filtered_data)
+    
+    cursor.close()
+    connection.close()
+
+if __name__ == "__main__":
+    main()
