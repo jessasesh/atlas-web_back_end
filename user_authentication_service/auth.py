@@ -18,6 +18,13 @@ def _hash_password(password: str) -> bytes:
     return hashed_password
 
 
+def _generate_uuid() -> str:
+    """
+    Generates new UUID
+    """
+    return str(uuid.uuid4())
+
+
 class Auth:
     """Auth class to interact with the authentication database.
     """
@@ -49,10 +56,15 @@ class Auth:
             return bcrypt.checkpw(password_bytes, user_info.hashed_password)
         except NoResultFound:
             return False
-
-    @staticmethod
-    def _generate_uuid() -> str:
+        
+    def create_session(self, email: str) -> str:
         """
-        Generates new UUID
+        Session ID
         """
-        return str(uuid.uuid4())
+        try:
+            user_info = self._db.find_user_by(email=email)
+            session_id = _generate_uuid()
+            self._db.update_user(user_info.id, session_id=session_id)
+            return session_id
+        except NoResultFound:
+            return None
