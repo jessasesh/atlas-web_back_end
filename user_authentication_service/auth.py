@@ -80,3 +80,13 @@ class Auth:
             return found_user
         except NoResultFound:
             return None
+
+    def destroy_session(self, user_id: int) -> None:
+        """
+        Destroy Session
+        """
+        try:
+            destroyed_sesh = self._db.find_user_by(id=user_id)
+            destroyed_sesh.session_id = None
+        except NoResultFound:
+            return None
