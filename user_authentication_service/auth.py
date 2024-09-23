@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Hash Pwd
+Hash Pwd and Auth utilities
 """
 from db import DB
 from user import User
@@ -15,7 +15,6 @@ def _hash_password(password: str) -> bytes:
     """
     salt = bcrypt.gensalt()
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
-
     return hashed_password
 
 
@@ -51,6 +50,7 @@ class Auth:
         except NoResultFound:
             return False
 
+    @staticmethod
     def _generate_uuid() -> str:
         """
         Generates new UUID
