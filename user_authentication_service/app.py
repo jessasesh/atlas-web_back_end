@@ -90,5 +90,19 @@ def logout() -> str:
         abort(403)
 
 
+@app.route("/profile", methods=["GET"], strict_slashes=False)
+def profile():
+    """
+    Session cookie to find user and give 200 status
+    """
+    sesh_id = request.cookies.get("session_id")
+    user = AUTH.get_user_from_session_id(sesh_id)
+
+    if user:
+        return jsonify({"email": f"{user.email}"}), 200
+    else:
+        abort(403)
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
