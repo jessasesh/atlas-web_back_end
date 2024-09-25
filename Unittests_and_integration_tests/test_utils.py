@@ -33,7 +33,7 @@ class TestAccessNestedMap(unittest.TestCase):
             access_nested_map(nested_map, path)
         self.assertEqual(str(context.exception), f"'{path[-1]}'")
 
-class TestGetJason(unittest.TestCase):
+class TestGetJson(unittest.TestCase):
 
     @patch('utils.requests.get')
     @parameterized.expand([
