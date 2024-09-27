@@ -6,6 +6,8 @@ import unittest
 from unittest.mock import patch, Mock, PropertyMock
 from parameterized import parameterized
 from utils import get_json
+from client import GithubOrgClient
+from fixtures import TEST_PAYLOAD
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -76,3 +78,55 @@ class TestGithubOrgClient(unittest.TestCase):
         """
         result = GithubOrgClient.has_license(repo, license_key)
         self.assertEqual(result, expected_value)
+
+
+@parameterized_class(
+    ('org_payload', 'repos_payload', 'expected_repos', 'apache2_repos'),
+    TEST_PAYLOAD
+)
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """
+    Integration test
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        """
+        Set up
+        """
+        cls.get_patcher = patch('requests.get')
+        cls.mock_get = cls.get_patcher.start()
+
+        def side_effect(url):
+            if url == "https://api.github.com/orgs/google":
+                return patch('requests.Response',
+                             json=lambda: cls.org_payload)
+            elif url == "https://api.github.com/orgs/google/repos":
+                return patch('requests.Response',
+                             json=lambda: cls.repos_payload)
+            return None
+
+        cls.mock_get.side_effect = side_effect
+
+    @classmethod
+    def tearDownClass(cls):
+        """
+        Stop the patcher after tests
+        """
+        cls.get_patcher.stop()
+
+    def test_public_repos(self):
+        """
+        Test public_repos returns the expected list of repositories
+        """
+        github_client = GithubOrgClient("google")
+        repos = github_client.public_repos()
+        self.assertEqual(repos, self.expected_repos)
+
+    def test_public_repos_with_license(self):
+        """
+        Test public_repos with a specific license
+        """
+        github_client = GithubOrgClient("google")
+        repos = github_client.public_repos(license="apache-2.0")
+        self.assertEqual(repos, self.apache2_repos)
