@@ -17,9 +17,10 @@ def count_calls(method: Callable) -> Callable:
     def wrapper(self, *args, **kwargs):
         key = method.__qualname__
         self._redis.incr(key)
-        
+
         return method(self, *args, **kwargs)
     return wrapper
+
 
 class Cache:
     """
